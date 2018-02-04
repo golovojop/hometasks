@@ -14,7 +14,7 @@ class PoWMiner[HF <: CryptographicHash32](hashFunction: HF) {
 	* Set power value to 5 and upper (ie 2**5, 2**6, ...)
 	*/
 	var range : Int = 1 << 5
-    var pd = ProvedData(data, range)
+	var pd = ProvedData(data, range)
 	
 	for(i <- -range to range-1) {
 		if(validateWork(pd, difficulty)){
