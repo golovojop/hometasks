@@ -9,14 +9,18 @@ class PoWMiner[HF <: CryptographicHash32](hashFunction: HF) {
   private val MaxTarget: BigInt = BigInt(1, Array.fill(32)((-1).toByte))
    
   def doWork(data: Array[Byte], difficulty: BigInt): ProvedData = {
-   // println("data length = " + data.length)
-
 	
-	var range : Int = BigInt(2).pow(4).toInt
-    var pd = ProvedData(data, 0);
+	/**
+	* Set power value to 5 and upper (ie 2**5, 2**6, ...)
+	*/
+	var range : Int = 1 << 5
+    var pd = ProvedData(data, range)
 	
-	for(i <- -range to range) {
-		if(validateWork(pd, difficulty)) return pd
+	for(i <- -range to range-1) {
+		if(validateWork(pd, difficulty)){
+			println ("nonce: " + i)
+			return pd
+		}
 		pd = ProvedData(data, i)
 	}
 		
@@ -24,15 +28,11 @@ class PoWMiner[HF <: CryptographicHash32](hashFunction: HF) {
 	
 	
 	/*
-	var range : Int = BigInt(2).pow(10).toInt
+	var range : Int = BigInt(2).pow(5).toInt
     var pd = ProvedData(data, range);
 	for(i <- -range to range; if(validateWork(ProvedData(data, i), difficulty))) yield pd = ProvedData(data, i)
 	pd
 	*/
-	
-	
-	
-	
 	  
   }
 
