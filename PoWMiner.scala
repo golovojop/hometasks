@@ -29,7 +29,7 @@ class PoWMiner[HF <: CryptographicHash32](hashFunction: HF) {
 	
 	/*
 	var range : Int = BigInt(2).pow(5).toInt
-    var pd = ProvedData(data, range);
+	var pd = ProvedData(data, range);
 	for(i <- -range to range; if(validateWork(ProvedData(data, i), difficulty))) yield pd = ProvedData(data, i)
 	pd
 	*/
